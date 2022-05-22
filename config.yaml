@@ -26,7 +26,7 @@ params:
     avatar:
       enabled: true
       local: false
-      src: img/egg.jpeg
+      src: https://reiichii.github.io/img/egg.jpeg
 
   article:
     math: false
