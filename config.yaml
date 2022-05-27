@@ -2,6 +2,8 @@ baseURL: https://reiichii.github.io
 languageCode: en-us
 title: 日々のあれこれφ(．．)
 theme: hugo-theme-stack
+permalinks:
+  post: /:sections/:filename
 
 # theme config
 params:
