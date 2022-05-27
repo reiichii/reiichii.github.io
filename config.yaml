@@ -11,7 +11,7 @@ params:
     - post
   featuredImageField: image
   rssFullContent: true
-  favicon:
+  favicon: https://reiichii.github.io/img/egg.jpeg
 
   footer:
     since:
