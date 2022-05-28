@@ -14,6 +14,7 @@ params:
   favicon: https://reiichii.github.io/img/egg.jpeg
 
   footer:
+    #    since: "2022"
     since:
     customText:
 
@@ -151,3 +152,19 @@ params:
       enabled: true
     content:
       enabled: true
+
+menu:
+  main: []
+
+  social:
+    - identifier: github
+      name: GitHub
+      url: https://github.com/reiichii
+      params:
+        icon: brand-github
+
+    - identifier: twitter
+      name: Twitter
+      url: https://twitter.com/reiichii01
+      params:
+        icon: brand-twitter
