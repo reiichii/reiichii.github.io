@@ -121,6 +121,7 @@ params:
       - type: tag-cloud
         params:
           limit: 10
+      - type: twitter
     page:
       - type: toc
 
