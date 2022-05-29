@@ -4,6 +4,7 @@ title: 日々のあれこれφ(．．)
 theme: hugo-theme-stack
 permalinks:
   post: /:sections/:filename
+googleAnalytics: G-LKHQH1CW54
 
 # theme config
 params:
