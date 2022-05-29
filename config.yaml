@@ -5,6 +5,10 @@ theme: hugo-theme-stack
 permalinks:
   post: /:sections/:filename
 googleAnalytics: G-LKHQH1CW54
+sitemap:
+  changefreq: monthly
+  filename: sitemap.xml
+  priority: 0.5
 
 # theme config
 params:
