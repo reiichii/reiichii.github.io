@@ -1,17 +1,76 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>日々のあれこれφ(．．)</title><link>https://reiichii.github.io/</link><description>Recent content on 日々のあれこれφ(．．)</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 28 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://reiichii.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>About</title><link>https://reiichii.github.io/page/about/</link><pubDate>Sat, 28 May 2022 00:00:00 +0000</pubDate><guid>https://reiichii.github.io/page/about/</guid><description>&lt;p>日々のあれこれを忘れないようにするためのブログです。&lt;br>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>日々のあれこれφ(．．)</title><link>https://reiichii.github.io/</link><description>Recent content on 日々のあれこれφ(．．)</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 05 Jun 2022 16:19:27 +0900</lastBuildDate><atom:link href="https://reiichii.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>キーマップ変更する時の手順</title><link>https://reiichii.github.io/post/2022-06-05-16/</link><pubDate>Sun, 05 Jun 2022 16:19:27 +0900</pubDate><guid>https://reiichii.github.io/post/2022-06-05-16/</guid><description>&lt;img src="https://reiichii.github.io/post/2022-06-05-16/img_keymap.png" alt="Featured image of post キーマップ変更する時の手順" />&lt;p>&lt;img src="https://reiichii.github.io/post/2022-06-05-16/img_keymap.png"
+width="720"
+height="720"
+srcset="https://reiichii.github.io/post/2022-06-05-16/img_keymap_hu50b55d9f2e639c377323533322f7b495_75174_480x0_resize_box_3.png 480w, https://reiichii.github.io/post/2022-06-05-16/img_keymap_hu50b55d9f2e639c377323533322f7b495_75174_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="新しいキーマップ。大体端のものを真ん中に寄せているだけ"
+class="gallery-image"
+data-flex-grow="100"
+data-flex-basis="240px"
+>&lt;/p>
+&lt;p>1年ほど前にこしらえた自作キーボードでpc作業を行なっています。&lt;/p>
+&lt;p>久しぶりにキーマップを変えようと思ったらびっくりするくらいやり方を忘れており、思い出すのに結構時間が掛かったため未来の自分用に忘備録としてやり方を残しておきます。&lt;/p>
+&lt;p>&lt;a class="link" href="https://reiichii.hateblo.jp/entry/2021/05/04/210513" target="_blank" rel="noopener"
+>【自作キーボード】Sparrow62を組み立てた&lt;/a>&lt;/p>
+&lt;h2 id="やること">やること&lt;/h2>
+&lt;ul>
+&lt;li>キーマップの設計&lt;/li>
+&lt;li>キーボードのfirmwareに書き込む&lt;/li>
+&lt;/ul>
+&lt;h3 id="キーマップの設計">キーマップの設計&lt;/h3>
+&lt;p>キーマップの設計は、&lt;a class="link" href="https://config.qmk.fm/#/sparrow62/LAYOUT" target="_blank" rel="noopener"
+>QMK Configurator&lt;/a>というWebアプリからGUIで行います。&lt;/p>
+&lt;ol>
+&lt;li>前の設定を読み込ませる
+&lt;ul>
+&lt;li>KEYBOARDを自分が使っているものに選択する&lt;/li>
+&lt;li>urlからjsonをアップロードするボタンを押下し、keymap.json（以前の設定時にexportしておいたもの）のrowファイルのurlを読み込ませる&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>画面ぽちぽちでキーマップの配置を変更する&lt;/li>
+&lt;li>右上のCOMPILEボタンを押下する&lt;/li>
+&lt;li>右下のFIRMWAREボタンを押下し、hexファイルをダウンロードする&lt;/li>
+&lt;/ol>
+&lt;p>後の作業のために、この画面はまだ閉じないでおく。&lt;/p>
+&lt;p>参考：&lt;a class="link" href="https://salicylic-acid3.hatenablog.com/entry/qmk-configurator" target="_blank" rel="noopener"
+>（初心者編）QMK Configuratorを使ってキーマップを書き換えよう - 自作キーボード温泉街の歩き方&lt;/a>&lt;/p>
+&lt;h3 id="キーボードのfirmwareに書き込む">キーボードのfirmwareに書き込む&lt;/h3>
+&lt;p>ローカルPCにインストール済みのQMK Toolboxに先ほどのhexファイルを読み込ませ、キーボードのfirmwareに書き込みます。キーボードは左右繋げたままにして、左右それぞれに書き込みをします。&lt;/p>
+&lt;ol>
+&lt;li>QMK Toolboxを開く&lt;/li>
+&lt;li>先ほどダウンロードしたhexファイルを読み込ませる&lt;/li>
+&lt;li>autoreloadにチェックをする&lt;/li>
+&lt;li>キーボードのリセットボタンを1度押下する
+&lt;ul>
+&lt;li>書き込みが始まり、「done. thank you. disconnect」の文言が出たら無事成功&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>反対のキーボードにケーブルを差し、3と4を行う&lt;/li>
+&lt;/ol>
+&lt;p>QMK ConfiguratorのTEST KEYBOARDでキーボードのボタンに意図した変更が反映されていることを確認する。&lt;/p>
+&lt;p>参考：&lt;a class="link" href="https://salicylic-acid3.hatenablog.com/entry/qmk-toolbox" target="_blank" rel="noopener"
+>（初心者編）自作キーボードにファームウェアを書き込む - 自作キーボード温泉街の歩き方&lt;/a>&lt;/p>
+&lt;h3 id="後片付け">後片付け&lt;/h3>
+&lt;ul>
+&lt;li>QMK Configuratorでjsonファイルをexportしておく（次回また読み込ませるため）&lt;/li>
+&lt;li>PRINT KEYMAPで画像をスクショしておく（稀にボタンの配置がどうなっていたのか見返したくなるため）&lt;/li>
+&lt;li>上記をkeymapリポジトリに反映させておく&lt;/li>
+&lt;/ul>
+&lt;h2 id="おわりに">おわりに&lt;/h2>
+&lt;p>初回は設定で精一杯で運用(?)のことを全然考えていなかったので、「あれjsonファイル出力してたっけ」「キーマップの画像をスクショしておいたはずなんだけどどこやったっけ」なんてわたわたしていました。githubに上げておけば家からでも会社からでもキーマップ確認できるし、これできっと一安心😌&lt;/p></description></item><item><title>About</title><link>https://reiichii.github.io/page/about/</link><pubDate>Sat, 28 May 2022 00:00:00 +0000</pubDate><guid>https://reiichii.github.io/page/about/</guid><description>&lt;p>日々のあれこれを忘れないようにするためのブログです。&lt;br>
 ジャンルは絞らず、気の向くままに続けていけたらと思っています。&lt;/p>
 &lt;p>&lt;a class="link" href="https://reiichii.hateblo.jp/" target="_blank" rel="noopener"
->旧ブログ（はてなブログ）&lt;/a>&lt;/p></description></item><item><title>ブログ引っ越した</title><link>https://reiichii.github.io/post/2022052716/</link><pubDate>Fri, 27 May 2022 17:01:55 +0900</pubDate><guid>https://reiichii.github.io/post/2022052716/</guid><description>&lt;img src="https://reiichii.github.io/post/2022052716/IMG_8179.jpg" alt="Featured image of post ブログ引っ越した" />&lt;p>はてなからHugoで立てたブログに引っ越しました。&lt;/p>
+>旧ブログ（はてなブログ）&lt;/a>&lt;/p></description></item><item><title>ブログ引っ越した</title><link>https://reiichii.github.io/post/2022-05-27-16/</link><pubDate>Fri, 27 May 2022 17:01:55 +0900</pubDate><guid>https://reiichii.github.io/post/2022-05-27-16/</guid><description>&lt;img src="https://reiichii.github.io/post/2022-05-27-16/IMG_8179.jpg" alt="Featured image of post ブログ引っ越した" />&lt;p>はてなからHugoで立てたブログに引っ越しました。&lt;/p>
 &lt;p>大きな理由としては、以前のブログの見た目が気に入らなかった（カスタマイズのコストが高い）ことと、vscodeとmarkdownでブログ書きたかったというのが主です。&lt;/p>
 &lt;p>デプロイ先はNetlifyを使おうか悩んだのですが、ブログの目的がアウトプットの習慣付けが主で、アクセス数稼ぎに力を入れていないことと、普段業務でGitLabを使うことが多かったので、GitHub PagesやCICDをちょっと触ってみたいなというのもあり、ミニマムにGitHub Pagesで始めてみることにしました。後から乗り換えることもできなくはないですし。その場合ドメイン変わってしまいますが個人ブログでリスクもないので気の向くままにやっていく方針で😌&lt;/p>
 &lt;p>既存のブログと記事は特にexportせずそのまま残しておく予定です。（もしかしたら戻る可能性もなくはないので）&lt;/p>
 &lt;p>これからもマイペースに続けていきたいと思います。&lt;/p>
 &lt;p>&lt;a class="link" href="https://reiichii.hateblo.jp/" target="_blank" rel="noopener"
 >以前のブログ&lt;/a>&lt;/p>
-&lt;p>&lt;img src="https://reiichii.github.io/post/2022052716/IMG_8179.jpg"
+&lt;p>&lt;img src="https://reiichii.github.io/post/2022-05-27-16/IMG_8179.jpg"
 width="2448"
 height="1471"
-srcset="https://reiichii.github.io/post/2022052716/IMG_8179_hu05940ea99d8537e6bd20faf24b516d8b_1077440_480x0_resize_q75_box.jpg 480w, https://reiichii.github.io/post/2022052716/IMG_8179_hu05940ea99d8537e6bd20faf24b516d8b_1077440_1024x0_resize_q75_box.jpg 1024w"
+srcset="https://reiichii.github.io/post/2022-05-27-16/IMG_8179_hu05940ea99d8537e6bd20faf24b516d8b_1077440_480x0_resize_q75_box.jpg 480w, https://reiichii.github.io/post/2022-05-27-16/IMG_8179_hu05940ea99d8537e6bd20faf24b516d8b_1077440_1024x0_resize_q75_box.jpg 1024w"
 loading="lazy"
 alt="こないだ食べたコース料理のデザートの羊モナカ可愛かった"
 class="gallery-image"

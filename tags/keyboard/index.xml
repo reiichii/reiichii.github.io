@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 日々のあれこれφ(．．)</title><link>https://reiichii.github.io/post/</link><description>Recent content in Posts on 日々のあれこれφ(．．)</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 05 Jun 2022 16:19:27 +0900</lastBuildDate><atom:link href="https://reiichii.github.io/post/index.xml" rel="self" type="application/rss+xml"/><item><title>キーマップ変更する時の手順</title><link>https://reiichii.github.io/post/2022-06-05-16/</link><pubDate>Sun, 05 Jun 2022 16:19:27 +0900</pubDate><guid>https://reiichii.github.io/post/2022-06-05-16/</guid><description>&lt;img src="https://reiichii.github.io/post/2022-06-05-16/img_keymap.png" alt="Featured image of post キーマップ変更する時の手順" />&lt;p>&lt;img src="https://reiichii.github.io/post/2022-06-05-16/img_keymap.png"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>keyboard on 日々のあれこれφ(．．)</title><link>https://reiichii.github.io/tags/keyboard/</link><description>Recent content in keyboard on 日々のあれこれφ(．．)</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 05 Jun 2022 16:19:27 +0900</lastBuildDate><atom:link href="https://reiichii.github.io/tags/keyboard/index.xml" rel="self" type="application/rss+xml"/><item><title>キーマップ変更する時の手順</title><link>https://reiichii.github.io/post/2022-06-05-16/</link><pubDate>Sun, 05 Jun 2022 16:19:27 +0900</pubDate><guid>https://reiichii.github.io/post/2022-06-05-16/</guid><description>&lt;img src="https://reiichii.github.io/post/2022-06-05-16/img_keymap.png" alt="Featured image of post キーマップ変更する時の手順" />&lt;p>&lt;img src="https://reiichii.github.io/post/2022-06-05-16/img_keymap.png"
 width="720"
 height="720"
 srcset="https://reiichii.github.io/post/2022-06-05-16/img_keymap_hu50b55d9f2e639c377323533322f7b495_75174_480x0_resize_box_3.png 480w, https://reiichii.github.io/post/2022-06-05-16/img_keymap_hu50b55d9f2e639c377323533322f7b495_75174_1024x0_resize_box_3.png 1024w"
@@ -57,20 +57,4 @@ data-flex-basis="240px"
 &lt;li>上記をkeymapリポジトリに反映させておく&lt;/li>
 &lt;/ul>
 &lt;h2 id="おわりに">おわりに&lt;/h2>
-&lt;p>初回は設定で精一杯で運用(?)のことを全然考えていなかったので、「あれjsonファイル出力してたっけ」「キーマップの画像をスクショしておいたはずなんだけどどこやったっけ」なんてわたわたしていました。githubに上げておけば家からでも会社からでもキーマップ確認できるし、これできっと一安心😌&lt;/p></description></item><item><title>ブログ引っ越した</title><link>https://reiichii.github.io/post/2022-05-27-16/</link><pubDate>Fri, 27 May 2022 17:01:55 +0900</pubDate><guid>https://reiichii.github.io/post/2022-05-27-16/</guid><description>&lt;img src="https://reiichii.github.io/post/2022-05-27-16/IMG_8179.jpg" alt="Featured image of post ブログ引っ越した" />&lt;p>はてなからHugoで立てたブログに引っ越しました。&lt;/p>
-&lt;p>大きな理由としては、以前のブログの見た目が気に入らなかった（カスタマイズのコストが高い）ことと、vscodeとmarkdownでブログ書きたかったというのが主です。&lt;/p>
-&lt;p>デプロイ先はNetlifyを使おうか悩んだのですが、ブログの目的がアウトプットの習慣付けが主で、アクセス数稼ぎに力を入れていないことと、普段業務でGitLabを使うことが多かったので、GitHub PagesやCICDをちょっと触ってみたいなというのもあり、ミニマムにGitHub Pagesで始めてみることにしました。後から乗り換えることもできなくはないですし。その場合ドメイン変わってしまいますが個人ブログでリスクもないので気の向くままにやっていく方針で😌&lt;/p>
-&lt;p>既存のブログと記事は特にexportせずそのまま残しておく予定です。（もしかしたら戻る可能性もなくはないので）&lt;/p>
-&lt;p>これからもマイペースに続けていきたいと思います。&lt;/p>
-&lt;p>&lt;a class="link" href="https://reiichii.hateblo.jp/" target="_blank" rel="noopener"
->以前のブログ&lt;/a>&lt;/p>
-&lt;p>&lt;img src="https://reiichii.github.io/post/2022-05-27-16/IMG_8179.jpg"
-width="2448"
-height="1471"
-srcset="https://reiichii.github.io/post/2022-05-27-16/IMG_8179_hu05940ea99d8537e6bd20faf24b516d8b_1077440_480x0_resize_q75_box.jpg 480w, https://reiichii.github.io/post/2022-05-27-16/IMG_8179_hu05940ea99d8537e6bd20faf24b516d8b_1077440_1024x0_resize_q75_box.jpg 1024w"
-loading="lazy"
-alt="こないだ食べたコース料理のデザートの羊モナカ可愛かった"
-class="gallery-image"
-data-flex-grow="166"
-data-flex-basis="399px"
->&lt;/p></description></item></channel></rss>
+&lt;p>初回は設定で精一杯で運用(?)のことを全然考えていなかったので、「あれjsonファイル出力してたっけ」「キーマップの画像をスクショしておいたはずなんだけどどこやったっけ」なんてわたわたしていました。githubに上げておけば家からでも会社からでもキーマップ確認できるし、これできっと一安心😌&lt;/p></description></item></channel></rss>
