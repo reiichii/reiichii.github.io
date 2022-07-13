@@ -7,7 +7,7 @@ powered by [Hugo](https://gohugo.io) and [the Stack theme](https://github.com/Ca
 ### Create posts file
 
 ```
-hugo new post/2022052716/index.md
+hugo new post/2022-05-27-16/index.md
 ```
 
 ### Run the website
