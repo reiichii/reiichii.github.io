@@ -16,5 +16,5 @@ hugo new post/2022-05-27-16/index.md
 hugo server -D --gc
 ```
 
--D, --buildDrafts: include content marked as draft  
+-D, --buildDrafts: include content marked as draft
 --gc: enable to run some cleanup tasks (remove unused cache files) after the build

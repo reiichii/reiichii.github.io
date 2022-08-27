@@ -5,7 +5,7 @@ draft: false
 categories:
     - 参加レポ
 tags:
-    - isucon
+    - ISUCON
 ---
 
 ISUCONハンズオン目的で申し込んだのですが、去年一昨年の事前講習レポートには書いていない内容が盛り込まれていて普通に楽しかったです。

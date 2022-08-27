@@ -5,7 +5,7 @@ draft: false
 categories:
     - tech
 tags:
-    - isucon
+    - ISUCON
 ---
 
 ISUCON11予選環境構築時、構築したアプリケーションでログインしようとすると「このサイトにアクセスできません」が表示されます。また遷移先urlが「`http://localhost:5000/?callback=https://isucondition.t.isucon.dev`」のようにおかしな表示になります。

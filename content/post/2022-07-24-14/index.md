@@ -6,7 +6,7 @@ image: score_graph.png
 categories:
     - 参加レポ
 tags:
-    - isucon
+    - ISUCON
 ---
 
 ISUCON12予選に参加しました。結果は散々だったのですが振り返りも兼ねて残しておこうと思います。
