@@ -1,4 +1,201 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>日々のあれこれφ(．．)</title><link>https://reiichii.github.io/</link><description>Recent content on 日々のあれこれφ(．．)</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 24 Jul 2022 14:06:01 +0900</lastBuildDate><atom:link href="https://reiichii.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>isucon12予選参加した</title><link>https://reiichii.github.io/post/2022-07-24-14/</link><pubDate>Sun, 24 Jul 2022 14:06:01 +0900</pubDate><guid>https://reiichii.github.io/post/2022-07-24-14/</guid><description>&lt;img src="https://reiichii.github.io/post/2022-07-24-14/score_graph.png" alt="Featured image of post isucon12予選参加した" />&lt;p>ISUCON12予選に参加しました。結果は散々だったのですが振り返りも兼ねて残しておこうと思います。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>日々のあれこれφ(．．)</title><link>https://reiichii.github.io/</link><description>Recent content on 日々のあれこれφ(．．)</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 27 Aug 2022 14:57:37 +0900</lastBuildDate><atom:link href="https://reiichii.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>isucon12予選問題解き直し</title><link>https://reiichii.github.io/post/2022-08-27-15/</link><pubDate>Sat, 27 Aug 2022 14:57:37 +0900</pubDate><guid>https://reiichii.github.io/post/2022-08-27-15/</guid><description>&lt;p>8月は&lt;a class="link" href="https://isucon.net/archives/56842718.html" target="_blank" rel="noopener"
+>ISUCON12 予選の解説 (Node.jsでSQLiteのまま10万点行く方法) | ISUCON公式Blog&lt;/a>を見ながらISUCON12予選問題の解き直しをしていました。まだ全部施策をやり切れておらず、点数も上がりきってはいないのですが、1ヶ月経ったので途中までまとめることに。&lt;/p>
+&lt;p>実施できたもの&lt;/p>
+&lt;ul>
+&lt;li>adminDB visit_history にINDEXを張る&lt;/li>
+&lt;li>dispenseIDでMySQLを使うのをやめる&lt;/li>
+&lt;li>Ranking APIのループクエリをなくす&lt;/li>
+&lt;li>Score APIの追加のループクエリをなくす&lt;/li>
+&lt;li>アトミック書き込みのためのflockをトランザクションに変更する(※怪しい)&lt;/li>
+&lt;li>adminDB visit_historyの初期データをコンパクトにする&lt;/li>
+&lt;li>db用サーバを投入し、2台構成にする&lt;/li>
+&lt;li>Finish APIでBillingReportを生成する(※怪しい)&lt;/li>
+&lt;li>Player APIをなんとかする&lt;/li>
+&lt;/ul>
+&lt;p>まだできていないもの&lt;/p>
+&lt;ul>
+&lt;li>tenantDB player_scoreにINDEXをはる&lt;/li>
+&lt;li>Ranking APIでランキング集計するのをやめる&lt;/li>
+&lt;li>AddTenant APIでSQLite DBを作るのをやめる&lt;/li>
+&lt;li>nginxで複数台に振り分ける&lt;/li>
+&lt;li>nginxをupstream keepaliveする&lt;/li>
+&lt;li>MySQLをちょっとチューニングする&lt;/li>
+&lt;/ul>
+&lt;p>半分以上は実施しているのに未だ点数が6000点代という&amp;hellip;思ったより厳しかった。&lt;/p>
+&lt;h2 id="admindb-visit_history-にindexを張る">adminDB visit_history にINDEXを張る&lt;/h2>
+&lt;p>去年の問題ならinitialエンドポイントテーブルが作り直しているのでschemaにindexを追加していたのですが、今回は対象テーブルではdrop createは実行されていないのでここに書いても意味なかったという🙂&lt;/p>
+&lt;p>covering indexという概念を初めて知りました。indexって貼れていればいいと思っていたのですが、張り方によっても性能(点数)に差が出てしまうんですね。せっかくなので3パターンで実行計画を比較してみました。&lt;/p>
+&lt;pre tabindex="0">&lt;code># 既存
+EXPLAIN SELECT player_id, MIN(created_at) AS min_created_at FROM visit_history WHERE tenant_id = 1 AND competition_id = &amp;#39;S&amp;#39; GROUP BY player_id;
++----+-------------+---------------+------------+------+---------------+---------------+---------+-------+---------+----------+------------------------------+
+| id | select_type | table | partitions | type | possible_keys | key | key_len | ref | rows | filtered | Extra |
++----+-------------+---------------+------------+------+---------------+---------------+---------+-------+---------+----------+------------------------------+
+| 1 | SIMPLE | visit_history | NULL | ref | tenant_id_idx | tenant_id_idx | 8 | const | 1292937 | 10.00 | Using where; Using temporary |
++----+-------------+---------------+------------+------+---------------+---------------+---------+-------+---------+----------+------------------------------+
+# covering index
++----+-------------+---------------+------------+------+-----------------------------+---------------+---------+-------------+------+----------+-------------+
+| id | select_type | table | partitions | type | possible_keys | key | key_len | ref | rows | filtered | Extra |
++----+-------------+---------------+------------+------+-----------------------------+---------------+---------+-------------+------+----------+-------------+
+| 1 | SIMPLE | visit_history | NULL | ref | tenant_id_idx,idx_all_cover | idx_all_cover | 1030 | const,const | 1 | 100.00 | Using index |
++----+-------------+---------------+------------+------+-----------------------------+---------------+---------+-------------+------+----------+-------------+
+# createdなし
++----+-------------+---------------+------------+------+-----------------------------+---------------+---------+-------------+------+----------+-------+
+| id | select_type | table | partitions | type | possible_keys | key | key_len | ref | rows | filtered | Extra |
++----+-------------+---------------+------------+------+-----------------------------+---------------+---------+-------------+------+----------+-------+
+| 1 | SIMPLE | visit_history | NULL | ref | tenant_id_idx,idx_all_cover | idx_all_cover | 1030 | const,const | 1 | 100.00 | NULL |
++----+-------------+---------------+------------+------+-----------------------------+---------------+---------+-------------+------+----------+-------+
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>indexを追加すると、possible_keys,keyにidx_all_coverが追加され、filteredが100%になる&lt;/li>
+&lt;li>covering indexにすると、ExtraにUsing indexが表示される&lt;/li>
+&lt;li>createdありとなしではスコアには200点ほど差がでた&lt;/li>
+&lt;/ul>
+&lt;p>mysqlのconvering indexとは&lt;/p>
+&lt;ul>
+&lt;li>クエリーによって取得されたすべてのカラムを含む&lt;em>&lt;strong>インデックス&lt;/strong>&lt;/em>&lt;/li>
+&lt;li>検索を索引内で完結でき、表からデータを読み取る必要がないため効率が良い&lt;/li>
+&lt;li>表のサイズがメモリに保持しきれないほど大きい場合の検索で有効&lt;/li>
+&lt;/ul>
+&lt;p>+500点ほど&lt;/p>
+&lt;h2 id="dispenseidでmysqlを使うのをやめる">dispenseIDでMySQLを使うのをやめる&lt;/h2>
+&lt;p>一意なidを生成するために以下のようにわざわざDBにアクセスしているが、これをuuidを生成するようにする&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/reiichii/isucon12q-after/commit/3409af51893bbda12ca68dc1ff1d1de914b0bb14" target="_blank" rel="noopener"
+>コミットログ&lt;/a>&lt;/p>
+&lt;p>SQLの&lt;code>REPLACE INTO&lt;/code>とは&lt;/p>
+&lt;ul>
+&lt;li>基本INSERTと同じだが、テーブル内の古い行にprivary keyまたはuniqueインデックスに関して新しい行と同じ値が含まれている場合その古い行は新しい行が挿入される前に削除される&lt;/li>
+&lt;li>挿入 or 削除と挿入　の違い&lt;/li>
+&lt;/ul>
+&lt;p>raise fromについて&lt;/p>
+&lt;ul>
+&lt;li>例外を連鎖することができる
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">try&lt;/span>:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">raise&lt;/span> &lt;span style="color:#a6e22e">ConnectionError&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">except&lt;/span> &lt;span style="color:#a6e22e">ConnectionError&lt;/span> &lt;span style="color:#66d9ef">as&lt;/span> e:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">raise&lt;/span> &lt;span style="color:#a6e22e">RuntimeError&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Failed to open database&amp;#34;&lt;/span>) &lt;span style="color:#f92672">from&lt;/span> e
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>出力は以下：&lt;code>The above exception was the direct cause of the following exception&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>Traceback (most recent call last):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> File &lt;span style="color:#e6db74">&amp;#34;~/ghq/github.com/reiichii/isucon12q-after/tmp.py&amp;#34;&lt;/span>, line &lt;span style="color:#ae81ff">2&lt;/span>, &lt;span style="color:#f92672">in&lt;/span> &lt;span style="color:#f92672">&amp;lt;&lt;/span>module&lt;span style="color:#f92672">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">raise&lt;/span> &lt;span style="color:#a6e22e">ConnectionError&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">ConnectionError&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>The above exception was the direct cause of the following exception:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Traceback (most recent call last):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> File &lt;span style="color:#e6db74">&amp;#34;/~/ghq/github.com/reiichii/isucon12q-after/tmp.py&amp;#34;&lt;/span>, line &lt;span style="color:#ae81ff">4&lt;/span>, &lt;span style="color:#f92672">in&lt;/span> &lt;span style="color:#f92672">&amp;lt;&lt;/span>module&lt;span style="color:#f92672">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">raise&lt;/span> &lt;span style="color:#a6e22e">RuntimeError&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Failed to open database&amp;#34;&lt;/span>) &lt;span style="color:#f92672">from&lt;/span> e
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">RuntimeError&lt;/span>: Failed to open database
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>from を使わないと、&lt;code>During handling of the above exception, another exception occurred&lt;/code> のようになる&lt;/li>
+&lt;/ul>
+&lt;p>+200点ほど&lt;/p>
+&lt;h2 id="ranking-apiのループクエリをなくす">Ranking APIのループクエリをなくす&lt;/h2>
+&lt;p>リクエストの合計時間が一番長い /api/player/competition/&amp;lt;competition_id&amp;gt;/ranking をなんとかする。&lt;/p>
+&lt;p>N+1になっているのでjoinを使う。&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/reiichii/isucon12q-after/commit/62e3d7bd4bdaca3b14cc682e0bce6605de907014" target="_blank" rel="noopener"
+>コミットログ&lt;/a>&lt;/p>
+&lt;p>+1000点になりました😳&lt;/p>
+&lt;h2 id="score-apiの追加のループクエリをなくす">Score APIの追加のループクエリをなくす&lt;/h2>
+&lt;blockquote>
+&lt;p>rankingの次にレスポンスタイム合計が大きいのはscoreなので&lt;/p>
+&lt;/blockquote>
+&lt;p>Node.jsで解いていたブログ記事では上記のように書いてあったが、私の環境(Python)ではscoreよりも/api/player/player/&amp;lt;player_id&amp;gt; の方が重かったです。&lt;/p>
+&lt;p>自分では最後のinsertのところをbulk insertにすればいいのかなと思っていたが、存在しないplayer_idを返す必要はないので数を比較するだけで十分という考えには至れませんでした。&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/reiichii/isucon12q-after/commit/8f787574d5a847a7f1cc33dc7ecdb4e35a1403d8" target="_blank" rel="noopener"
+>コミットログ&lt;/a>&lt;/p>
+&lt;p>こちらも+1000点ほど&lt;/p>
+&lt;h2 id="アトミック書き込みのためのflockをトランザクションに変更する怪しい">アトミック書き込みのためのflockをトランザクションに変更する(※怪しい)&lt;/h2>
+&lt;p>既存コードではテナントDB更新の際に、排他制御をするためにファイルをロックすることをしていますが、トランザクションを使うようにします。
+delete-insertの部分をトランザクションにしてflockを外す。他のflockは参照のみなので外すだけで良かった。&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/reiichii/isucon12q-after/commit/69b53bfb6318f46cdc0db67e38c1fb64271693a0" target="_blank" rel="noopener"
+>コミットログ&lt;/a>&lt;/p>
+&lt;p>この部分を実装したところ、数回に1回整合性チェックが通らなくなりました😢おそらくトランザクションがちゃんと効いていない模様で、なんでか全然分からなかったのですがおそらくAuto Commitが効いてしまっているところに思い至ったのでこれから確認する段階です。&lt;/p>
+&lt;p>そしてなぜか点数はそれほど上がらないどころか実行するたびに数百点の振り幅が出るように。&lt;/p>
+&lt;h2 id="admindb-visit_historyの初期データをコンパクトにする">adminDB visit_historyの初期データをコンパクトにする&lt;/h2>
+&lt;p>アプリケーションの作りがアクセスしたかどうかが分かればいいため、visit_historyのテナントID、大会ID、プレイヤーIDをgroup byしてmin(created_at) / min(updated_at)のデータのみが残るようにして重複したデータを減らす。&lt;/p>
+&lt;p>ちなみに対象テーブルのMySQLの初期化の部分は以下のようになっていて、一定のデータが消えないようになっています。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sql" data-lang="sql">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">DELETE&lt;/span> &lt;span style="color:#66d9ef">FROM&lt;/span> visit_history &lt;span style="color:#66d9ef">WHERE&lt;/span> created_at &lt;span style="color:#f92672">&amp;gt;=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;1654041600&amp;#39;&lt;/span>;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>念の為既存データを残しておきたかったので、私は以下の手順で実施しました。&lt;/p>
+&lt;ol>
+&lt;li>一時テーブルを作成（visit_history_tmpとする）&lt;/li>
+&lt;li>INSERT SELECT
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sql" data-lang="sql">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">INSERT&lt;/span> &lt;span style="color:#66d9ef">INTO&lt;/span> visit_history_tmp
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">SELECT&lt;/span> player_id, tenant_id, competition_id, &lt;span style="color:#66d9ef">MIN&lt;/span>(created_at), &lt;span style="color:#66d9ef">MIN&lt;/span>(updated_at)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">FROM&lt;/span> visit_history
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">GROUP&lt;/span> &lt;span style="color:#66d9ef">BY&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>,&lt;span style="color:#ae81ff">2&lt;/span>,&lt;span style="color:#ae81ff">3&lt;/span>;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>古いテーブルをrename
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sql" data-lang="sql">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">RENAME&lt;/span> &lt;span style="color:#66d9ef">TABLE&lt;/span> visit_history &lt;span style="color:#66d9ef">TO&lt;/span> visit_history_backup;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>一時テーブルをvisit_historyにrename
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sql" data-lang="sql">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">RENAME&lt;/span> &lt;span style="color:#66d9ef">TABLE&lt;/span> visit_history_tmp &lt;span style="color:#66d9ef">TO&lt;/span> visit_history;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;p>初期化時点の行数：3,224,839 → 削減後のデータ数：200,474（0.06%にまで削減された）&lt;/p>
+&lt;p>ただし私の場合スコアは変わらず&lt;/p>
+&lt;h2 id="db用サーバを投入し2台構成にする">DB用サーバを投入し、2台構成にする&lt;/h2>
+&lt;p>ブログの方では複数台構成準備のための施策に突入するのですが、私は先にappとdbの二台構成にすることにしました。&lt;/p>
+&lt;ul>
+&lt;li>mysqlで他サーバからのアクセスを許容する&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>CREATE USER `isucon`@`192.168.%` IDENTIFIED BY &amp;#39;isucon&amp;#39;;
+GRANT ALL PRIVILEGES ON `isuports`.* TO `isucon`@`192.168.%`;
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>application側で参照先dbを変更
+&lt;ul>
+&lt;li>今回はdocker-composeにホストが書いてあったのでそこの値を変更する&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>前のベンチマークの時点でCPUが余っていたので、これやっても点数が大して変わらないのは予想通りでした。&lt;/p>
+&lt;h2 id="finish-apiでbillingreportを生成する">Finish APIでBillingReportを生成する&lt;/h2>
+&lt;blockquote>
+&lt;p>今回の当日マニュアルにあった、「Finish APIを呼び出したあとにAdmin/OrganizerのBilling APIに結果が反映されるまで3秒の猶予があるの意味は、「初期実装だとBilling APIで請求額を計算しているけど、大会ごとにfinishするときに大会の請求額が確定するので、BillingReportをそこで生成してストレージにいれてね!」です。&lt;/p>
+&lt;/blockquote>
+&lt;p>分からん&amp;hellip;😇&lt;/p>
+&lt;p>finish が呼ばれた時にbilling_report_by_competitionを呼び出して、その結果をinsertします。&lt;/p>
+&lt;ul>
+&lt;li>テーブルを作成
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sql" data-lang="sql">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">CREATE&lt;/span> &lt;span style="color:#66d9ef">TABLE&lt;/span> &lt;span style="color:#f92672">`&lt;/span>billing_report&lt;span style="color:#f92672">`&lt;/span> (
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">`&lt;/span>tenant_id&lt;span style="color:#f92672">`&lt;/span> BIGINT UNSIGNED &lt;span style="color:#66d9ef">NOT&lt;/span> &lt;span style="color:#66d9ef">NULL&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">`&lt;/span>competition_id&lt;span style="color:#f92672">`&lt;/span> VARCHAR(&lt;span style="color:#ae81ff">255&lt;/span>) &lt;span style="color:#66d9ef">NOT&lt;/span> &lt;span style="color:#66d9ef">NULL&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">`&lt;/span>competition_title&lt;span style="color:#f92672">`&lt;/span> VARCHAR(&lt;span style="color:#ae81ff">255&lt;/span>) &lt;span style="color:#66d9ef">NOT&lt;/span> &lt;span style="color:#66d9ef">NULL&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">`&lt;/span>player_count&lt;span style="color:#f92672">`&lt;/span> BIGINT &lt;span style="color:#66d9ef">NOT&lt;/span> &lt;span style="color:#66d9ef">NULL&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">`&lt;/span>visitor_count&lt;span style="color:#f92672">`&lt;/span> BIGINT &lt;span style="color:#66d9ef">NOT&lt;/span> &lt;span style="color:#66d9ef">NULL&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">`&lt;/span>billing_player_yen&lt;span style="color:#f92672">`&lt;/span> BIGINT &lt;span style="color:#66d9ef">NOT&lt;/span> &lt;span style="color:#66d9ef">NULL&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">`&lt;/span>billing_visitor_yen&lt;span style="color:#f92672">`&lt;/span> BIGINT &lt;span style="color:#66d9ef">NOT&lt;/span> &lt;span style="color:#66d9ef">NULL&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">`&lt;/span>billing_yen&lt;span style="color:#f92672">`&lt;/span> BIGINT &lt;span style="color:#66d9ef">NOT&lt;/span> &lt;span style="color:#66d9ef">NULL&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">PRIMARY&lt;/span> &lt;span style="color:#66d9ef">KEY&lt;/span>(&lt;span style="color:#f92672">`&lt;/span>tenant_id&lt;span style="color:#f92672">`&lt;/span>, &lt;span style="color:#f92672">`&lt;/span>competition_id&lt;span style="color:#f92672">`&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>) ENGINE&lt;span style="color:#f92672">=&lt;/span>InnoDB &lt;span style="color:#66d9ef">DEFAULT&lt;/span> CHARACTER &lt;span style="color:#66d9ef">SET&lt;/span>&lt;span style="color:#f92672">=&lt;/span>utf8mb4;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>finish apiの時にbilling_report_by_competitionを呼び出して結果をinsertする&lt;/li>
+&lt;li>admin/organizationのbillingの参照先をdbからselectして取ってくる&lt;/li>
+&lt;li>初期データ生成処理を改修
+&lt;ul>
+&lt;li>初期データを入れ直したあとに全ての終了済み大会について billingReportByCompetition を実行してINSERTしなおす必要がある&lt;/li>
+&lt;li>billing report初期データ生成スクリプトを作成&lt;/li>
+&lt;li>&lt;code>mysqldump -uroot -proot isuports billing_report &amp;gt; initial_billing_report.dump&lt;/code>&lt;/li>
+&lt;li>initial時に初期データをimportさせる&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="https://github.com/reiichii/isucon12q-after/commit/64b7251efa85305e548fbfac2c19fed82d2379f9" target="_blank" rel="noopener"
+>コミットログ&lt;/a>&lt;/p>
+&lt;p>スコアはそれほど変わらず、不安定さが増してしまったように見受けられました。(編集とは関係ないエンドポイントでエラーが発生する)
+ただ&lt;code>api/admin/tenants/billing&lt;/code>, &lt;code>api/organizer/billing&lt;/code>の呼び出し回数と合計レスポンスタイムが大幅に改善されているので一旦よしとします。&lt;/p>
+&lt;h2 id="player-apiをなんとかする">Player APIをなんとかする&lt;/h2>
+&lt;p>上記のメトリクスを眺めているときにPlayer APIがものすごく重たくなっている(MAX 5s程度だったものがMAX 30sになっていた笑)ことに気づき、あまりにも気になったので先に直すことにしました。&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/reiichii/isucon12q-after/commit/17801b6a6af423f4ea6bc0670ba91af8c0111660" target="_blank" rel="noopener"
+>コミットログ&lt;/a>&lt;/p>
+&lt;p>これもN+1を直すだけです。必要な情報に対して多くクエリを発行しているのでスリムに書き直してあげます。&lt;/p>
+&lt;p>今まで4000点代で伸び悩んでいたスコアが6000点台まで届きました👏&lt;/p>
+&lt;h2 id="おわりに">おわりに&lt;/h2>
+&lt;p>スコアが伸び悩んで、また他のことをやりたくなってきたのもあり、8月いっぱいで一旦やめにしようかなと思いかけていたのですが、月末の週に突入して解決の兆しが見えてきたので、もう少し粘ってみようかと思います。&lt;/p>
+&lt;p>複数台構成にしたら10万点まで届くのだろうか&amp;hellip;&lt;/p>
+&lt;p>続きも書けたら書きます。&lt;/p></description></item><item><title>isucon12予選参加した</title><link>https://reiichii.github.io/post/2022-07-24-14/</link><pubDate>Sun, 24 Jul 2022 14:06:01 +0900</pubDate><guid>https://reiichii.github.io/post/2022-07-24-14/</guid><description>&lt;img src="https://reiichii.github.io/post/2022-07-24-14/score_graph.png" alt="Featured image of post isucon12予選参加した" />&lt;p>ISUCON12予選に参加しました。結果は散々だったのですが振り返りも兼ねて残しておこうと思います。&lt;/p>
 &lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">ISUCON12 オンライン予選、17:00の時点でスコアは凍結されました🚀 残時間 01:00:00のスコアはこちら！ &lt;a href="https://twitter.com/hashtag/isucon?src=hash&amp;amp;ref_src=twsrc%5Etfw">#isucon&lt;/a> &lt;a href="https://t.co/SGjrF9nBCR">pic.twitter.com/SGjrF9nBCR&lt;/a>&lt;/p>&amp;mdash; ISUCON公式 (@isucon_official) &lt;a href="https://twitter.com/isucon_official/status/1550753842446630912?ref_src=twsrc%5Etfw">July 23, 2022&lt;/a>&lt;/blockquote>
 &lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8">&lt;/script>
 &lt;h2 id="ステータス">ステータス&lt;/h2>
