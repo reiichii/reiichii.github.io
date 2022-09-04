@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>参加レポ on 日々のあれこれφ(．．)</title><link>https://reiichii.github.io/categories/%E5%8F%82%E5%8A%A0%E3%83%AC%E3%83%9D/</link><description>Recent content in 参加レポ on 日々のあれこれφ(．．)</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 24 Jul 2022 14:06:01 +0900</lastBuildDate><atom:link href="https://reiichii.github.io/categories/%E5%8F%82%E5%8A%A0%E3%83%AC%E3%83%9D/index.xml" rel="self" type="application/rss+xml"/><item><title>isucon12予選参加した</title><link>https://reiichii.github.io/post/2022-07-24-14/</link><pubDate>Sun, 24 Jul 2022 14:06:01 +0900</pubDate><guid>https://reiichii.github.io/post/2022-07-24-14/</guid><description>&lt;img src="https://reiichii.github.io/post/2022-07-24-14/score_graph.png" alt="Featured image of post isucon12予選参加した" />&lt;p>ISUCON12予選に参加しました。結果は散々だったのですが振り返りも兼ねて残しておこうと思います。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>参加レポ on 日々のあれこれφ(．．)</title><link>https://reiichii.github.io/categories/%E5%8F%82%E5%8A%A0%E3%83%AC%E3%83%9D/</link><description>Recent content in 参加レポ on 日々のあれこれφ(．．)</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 24 Jul 2022 14:06:01 +0900</lastBuildDate><atom:link href="https://reiichii.github.io/categories/%E5%8F%82%E5%8A%A0%E3%83%AC%E3%83%9D/index.xml" rel="self" type="application/rss+xml"/><item><title>ISUCON12予選参加した</title><link>https://reiichii.github.io/post/2022-07-24-14/</link><pubDate>Sun, 24 Jul 2022 14:06:01 +0900</pubDate><guid>https://reiichii.github.io/post/2022-07-24-14/</guid><description>&lt;img src="https://reiichii.github.io/post/2022-07-24-14/score_graph.png" alt="Featured image of post ISUCON12予選参加した" />&lt;p>ISUCON12予選に参加しました。結果は散々だったのですが振り返りも兼ねて残しておこうと思います。&lt;/p>
 &lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">ISUCON12 オンライン予選、17:00の時点でスコアは凍結されました🚀 残時間 01:00:00のスコアはこちら！ &lt;a href="https://twitter.com/hashtag/isucon?src=hash&amp;amp;ref_src=twsrc%5Etfw">#isucon&lt;/a> &lt;a href="https://t.co/SGjrF9nBCR">pic.twitter.com/SGjrF9nBCR&lt;/a>&lt;/p>&amp;mdash; ISUCON公式 (@isucon_official) &lt;a href="https://twitter.com/isucon_official/status/1550753842446630912?ref_src=twsrc%5Etfw">July 23, 2022&lt;/a>&lt;/blockquote>
 &lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8">&lt;/script>
 &lt;h2 id="ステータス">ステータス&lt;/h2>
@@ -13,7 +13,7 @@
 &lt;h2 id="準備">準備&lt;/h2>
 &lt;p>やっていたこととしては以下です。&lt;/p>
 &lt;ul>
-&lt;li>isucon11予選過去問解く
+&lt;li>ISUCON11予選過去問解く
 &lt;ul>
 &lt;li>alpやmysqlのslow query logなどの計測ツールを使えるようになっておくこと&lt;/li>
 &lt;/ul>
@@ -23,7 +23,7 @@
 &lt;li>普段rubyさわらないので多少やりにくかったのですが、出て良かったです。&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;li>isucon用ansible playbookを用意
+&lt;li>ISUCON用ansible playbookを用意
 &lt;ul>
 &lt;li>計測ツールの導入をスムーズに行うため準備していました&lt;/li>
 &lt;/ul>
@@ -123,7 +123,7 @@
 &lt;/ul>
 &lt;h2 id="その他感想">その他感想&lt;/h2>
 &lt;ul>
-&lt;li>isucon11予選問題を解いていた時はアプリケーションの使用の仕様が難しく、何やっていいか全く分からない状態でした。それに比べたら今回の問題はまだその辺りの把握はしやすかったです&lt;/li>
+&lt;li>ISUCON11予選問題を解いていた時はアプリケーションの使用の仕様が難しく、何やっていいか全く分からない状態でした。それに比べたら今回の問題はまだその辺りの把握はしやすかったです&lt;/li>
 &lt;li>ポータルサイトがどんなものかずっと見てみたかったので感動しました。終わった後速攻で選手用ページが見れなくなってしまい、ベンチマークのログやダッシュボードのスクショを取り損ねてしまいました&lt;/li>
 &lt;li>終わった後眼精疲労でくたくたで、速攻でpc閉じてしまったのですが、DCの方では感想戦で盛り上がっていて他の参加者のバイタリティの高さを感じました。翌朝読み返していて面白く、復習時の参考にまた読み返そうと思います&lt;/li>
 &lt;li>集中力は8h意外と持ちました。1h~1h30minにつき5minの休憩を無理やり設けるようにして良かったです&lt;/li>
@@ -169,7 +169,7 @@ data-flex-basis="320px"
 - 事前に用意しておく
 * やったことがないことをやらない
 - 大会中に実務で触っていないgoに移植しようとしてボロ負けした経験がある
-&lt;/code>&lt;/pre>&lt;p>なんとなく手を動かすな、仮説をベースに動くことはisucon以外の仕事でも言える。&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>なんとなく手を動かすな、仮説をベースに動くことはISUCON以外の仕事でも言える。&lt;/p>
 &lt;pre tabindex="0">&lt;code>## タイムライン
 10:00
 * マニュアルとレギュレーションを読む
@@ -212,7 +212,7 @@ data-flex-basis="320px"
 * 作業ログをブログに書く準備をする
 * 記憶が明確な間に振り返りをする
 &lt;/code>&lt;/pre>&lt;p>優勝経験チームの行動をトレスしたタイムラインは、考え方など参考にできるところが多い貴重な資料です。&lt;/p>
-&lt;p>前にisucon11予選過去問に挑戦した時、私の場合マニュアルとレギュレーションを読むだけで1時間はかかったので10:00代きっっっつて思いながら聞いていました🙂&lt;/p>
+&lt;p>前にISUCON11予選過去問に挑戦した時、私の場合マニュアルとレギュレーションを読むだけで1時間はかかったので10:00代きっっっつて思いながら聞いていました🙂&lt;/p>
 &lt;pre tabindex="0">&lt;code>### おすすめの練習
 * デプロイ方法セットアップ
 - リポジトリ作って、git initして、チェックインして、deploy
