@@ -1,5 +1,5 @@
 ---
-title: "isucon11-qualifyのログインページが開かなかった"
+title: "ISUCON11-qualifyのログインページが開かなかった"
 date: 2022-07-13T22:21:31+09:00
 draft: false
 categories:

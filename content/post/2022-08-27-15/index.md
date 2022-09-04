@@ -1,12 +1,12 @@
 ---
-title: "isucon12予選問題解き直し"
+title: "ISUCON12予選問題解き直し"
 date: 2022-08-27T14:57:37+09:00
 draft: false
 categories:
     - tech
 tags:
     - ISUCON
-    - python
+    - Python
 ---
 
 8月は[ISUCON12 予選の解説 (Node.jsでSQLiteのまま10万点行く方法) | ISUCON公式Blog](https://isucon.net/archives/56842718.html)を見ながらISUCON12予選問題の解き直しをしていました。まだ全部施策をやり切れておらず、点数も上がりきってはいないのですが、1ヶ月経ったので途中までまとめることに。
@@ -90,14 +90,14 @@ SQLの`REPLACE INTO`とは
 raise fromについて
 
 * 例外を連鎖することができる
-    ```python
+    ```Python
     try:
         raise ConnectionError()
     except ConnectionError as e:
         raise RuntimeError("Failed to open database") from e
     ```
   - 出力は以下：`The above exception was the direct cause of the following exception`
-```python
+```Python
 Traceback (most recent call last):
   File "~/ghq/github.com/reiichii/isucon12q-after/tmp.py", line 2, in <module>
     raise ConnectionError()
