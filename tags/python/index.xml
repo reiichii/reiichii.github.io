@@ -1,4 +1,177 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python on 日々のあれこれφ(．．)</title><link>https://reiichii.github.io/tags/python/</link><description>Recent content in Python on 日々のあれこれφ(．．)</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 04 Sep 2022 22:28:00 +0900</lastBuildDate><atom:link href="https://reiichii.github.io/tags/python/index.xml" rel="self" type="application/rss+xml"/><item><title>ISUCON12予選問題解き直し2</title><link>https://reiichii.github.io/post/2022-09-04-22/</link><pubDate>Sun, 04 Sep 2022 22:28:00 +0900</pubDate><guid>https://reiichii.github.io/post/2022-09-04-22/</guid><description>&lt;p>&lt;a class="link" href="http://localhost:1313/post/2022-08-27-15/" target="_blank" rel="noopener"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python on 日々のあれこれφ(．．)</title><link>https://reiichii.github.io/tags/python/</link><description>Recent content in Python on 日々のあれこれφ(．．)</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 10 Oct 2022 12:30:14 +0900</lastBuildDate><atom:link href="https://reiichii.github.io/tags/python/index.xml" rel="self" type="application/rss+xml"/><item><title>TyperとPoetryでcliを作って公開するまでの流れ</title><link>https://reiichii.github.io/post/2022-10-10-12/</link><pubDate>Mon, 10 Oct 2022 12:30:14 +0900</pubDate><guid>https://reiichii.github.io/post/2022-10-10-12/</guid><description>&lt;p>cliを作りたかったというよりは、FastAPIの兄弟ツールTyperを触ってみたかったのと、Pythonでcliを作る流れを思い出したかったのが動機です。ですのでtodolistは最小限の機能だけを持っています。&lt;/p>
+&lt;p>最後にcliを作ったのはPython初めて1年目くらいの頃で、その頃はまだPoetryも触っておらず、setup.py書くの大変だったという記憶しかなかったのですが、今はこんなに手軽に作れてしまうんだなと感動でした。&lt;/p>
+&lt;h2 id="poetryでパッケージを作成する">Poetryでパッケージを作成する&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>Poetryでプロジェクトの雛形を作成します&lt;/p>
+&lt;pre tabindex="0">&lt;code>poetry new python_cli_todo
+.
+├── README.md
+├── pyproject.toml
+├── r_todolist
+│ └── __init__.py
+└── tests
+└── __init__.py
+&lt;/code>&lt;/pre>&lt;/li>
+&lt;li>
+&lt;p>作成したライブラリに必要なパッケージをインストールします。&lt;/p>
+&lt;pre tabindex="0">&lt;code>poetry add typer[all]
+&lt;/code>&lt;/pre>&lt;p>今回はTyperだけです。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>pyproject.tomlにcli用の設定を追記&lt;/p>
+&lt;pre tabindex="0">&lt;code>[tool.poetry.scripts]
+todo = &amp;#34;r_todolist.main:app&amp;#34;
+&lt;/code>&lt;/pre>&lt;p>&lt;code>todo&lt;/code>コマンドで動くようになっています&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>サンプルコードを載せておく&lt;/p>
+&lt;p>動作確認をした後実装する予定なので、今は公式ドキュメントの以下のコードを配置しておきます。&lt;/p>
+&lt;p>&lt;a class="link" href="https://typer.tiangolo.com/tutorial/package/#create-your-app" target="_blank" rel="noopener"
+>https://typer.tiangolo.com/tutorial/package/#create-your-app&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>仮想環境内でcliを実行してみる&lt;/p>
+&lt;pre tabindex="0">&lt;code>poetry install
+&lt;/code>&lt;/pre>&lt;pre tabindex="0">&lt;code>$ poetry run todo load
+Loading portal gun
+$ poetry run todo shoot
+Shooting portal gun
+&lt;/code>&lt;/pre>&lt;/li>
+&lt;/ul>
+&lt;h2 id="アプリケーションの実装">アプリケーションの実装&lt;/h2>
+&lt;p>今回実装するtodolistはCRUD4つのサブコマンドを持つものです。DBはSQLite3を使います。各サブコマンドの細かい出力例は&lt;a class="link" href="https://github.com/reiichii/python-todolist-cli#%E4%BB%95%E6%A7%98" target="_blank" rel="noopener"
+>README&lt;/a>に記載してあります。&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>add&lt;/code>: タスクの追加&lt;/li>
+&lt;li>&lt;code>ls&lt;/code>: タスクの一覧参照(デフォルトで未完了のもの・オプションで完了済みのものを表示できる)&lt;/li>
+&lt;li>&lt;code>done&lt;/code>: 完了したタスクを完了済みにする&lt;/li>
+&lt;li>&lt;code>rm&lt;/code>: タスクの削除(複数指定可)&lt;/li>
+&lt;/ul>
+&lt;h3 id="typerについて">Typerについて&lt;/h3>
+&lt;p>&lt;a class="link" href="https://typer.tiangolo.com/" target="_blank" rel="noopener"
+>https://typer.tiangolo.com/&lt;/a>&lt;/p>
+&lt;p>FastAPIの作者が作ったcliを作成するためのライブラリになります。作者曰く兄弟ライブラリとのことで、FastAPIの要素である「型定義してエディタのサポートを受け開発効率を上げる」をcli開発時にも実現する設計思想のようです。ただしPydanticではなくClickパッケージをベースに実現させているようでした。&lt;/p>
+&lt;p>他にもcli出力時にstyleを良い感じにしてくれるrichというライブラリや、パッケージをインストールしたときに自動で実行環境のシェルに合う形で自動補完設定を追記してくれる機能がついていたりなど、色々充実していました。&lt;/p>
+&lt;p>以下ではTyper周りの部分だけ抜粋する形で取り上げています。コードの全体は&lt;a class="link" href="https://github.com/reiichii/python-todolist-cli/blob/main/r_todolist/main.py" target="_blank" rel="noopener"
+>main.py&lt;/a>の1ファイルに全部収まっています。&lt;/p>
+&lt;h3 id="addサブコマンド">addサブコマンド&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> typer
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">from&lt;/span> rich &lt;span style="color:#f92672">import&lt;/span> print
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>app &lt;span style="color:#f92672">=&lt;/span> typer&lt;span style="color:#f92672">.&lt;/span>Typer()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">@app&lt;/span>&lt;span style="color:#f92672">.&lt;/span>command() &lt;span style="color:#75715e"># 1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">add&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> task: str &lt;span style="color:#f92672">=&lt;/span> typer&lt;span style="color:#f92672">.&lt;/span>Option( &lt;span style="color:#75715e"># 2&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">...&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> prompt&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">True&lt;/span>, &lt;span style="color:#75715e"># 3&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;what you have to do.&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> show_default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;send a email&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74"> add task to list
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74"> &amp;#34;&amp;#34;&amp;#34;&lt;/span> &lt;span style="color:#75715e"># 4&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> db&lt;span style="color:#f92672">.&lt;/span>insert_task(task)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print(&lt;span style="color:#e6db74">&amp;#34;[green]added.[/green]&amp;#34;&lt;/span>) &lt;span style="color:#75715e"># 5&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol>
+&lt;li>&lt;code>@app.command()&lt;/code> でサブコマンドを関数として定義できる&lt;/li>
+&lt;li>Typerの基本的な挙動として、関数の引数にデフォルト値を含めなければcli実行時の必須のパラメータになり、デフォルト値を指定すればcli実行時のoptionを作ることができる&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>例えばadd関数の例では、上記の定義をすれば &lt;code>--task&lt;/code> というoptionが使えるようになっており、&lt;code>--task&lt;/code>で指定した値がtask変数に渡される&lt;/li>
+&lt;li>今回はoptionで指定しているが、デフォルト値を省略しているため必須項目としてhelpの表示が出たり、バリデーションが走るようになっている&lt;/li>
+&lt;/ul>
+&lt;ol start="3">
+&lt;li>&lt;code>typer.Option()&lt;/code>や &lt;code>typer.Arguments()&lt;/code>を使えば、引数により詳細な設定を追加することができる&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>例えば&lt;code>prompt=True&lt;/code>にしていることで、この関数ではtaskの入力を対話形式で入力できる&lt;/li>
+&lt;li>&lt;code>help&lt;/code>パラメータで、&lt;code>--help&lt;/code>した時にこのオプションの説明を追加することができる&lt;/li>
+&lt;/ul>
+&lt;ol start="4">
+&lt;li>docstringで定義した文章は、&lt;code>--help&lt;/code>時にそのままサブコマンドの説明として表示される&lt;/li>
+&lt;li>richライブラリの機能で、文字を緑色で表示させる。&lt;/li>
+&lt;/ol>
+&lt;h3 id="lsサブコマンド">lsサブコマンド&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> typer
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">from&lt;/span> rich &lt;span style="color:#f92672">import&lt;/span> print
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>app &lt;span style="color:#f92672">=&lt;/span> typer&lt;span style="color:#f92672">.&lt;/span>Typer()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">@app&lt;/span>&lt;span style="color:#f92672">.&lt;/span>command()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">ls&lt;/span>(done: bool &lt;span style="color:#f92672">=&lt;/span> typer&lt;span style="color:#f92672">.&lt;/span>Option(&lt;span style="color:#66d9ef">False&lt;/span>, help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Show only DONE tasks.&amp;#34;&lt;/span>)): &lt;span style="color:#75715e"># 1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74"> show incomplete tasks.
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74"> &amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> task_lists &lt;span style="color:#f92672">=&lt;/span> db&lt;span style="color:#f92672">.&lt;/span>get_lists(done)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> l &lt;span style="color:#f92672">in&lt;/span> task_lists:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> is_done &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;\[x]&amp;#34;&lt;/span> &lt;span style="color:#66d9ef">if&lt;/span> l&lt;span style="color:#f92672">.&lt;/span>is_done &lt;span style="color:#66d9ef">else&lt;/span> &lt;span style="color:#e6db74">&amp;#34;[]&amp;#34;&lt;/span> &lt;span style="color:#75715e"># 2&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print(&lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#39;- &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>is_done&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74"> &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>l&lt;span style="color:#f92672">.&lt;/span>id&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">. &amp;#34;&lt;/span>&lt;span style="color:#e6db74">{&lt;/span>l&lt;span style="color:#f92672">.&lt;/span>task&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol>
+&lt;li>lsサブコマンドのデフォルトの引数を &lt;code>False&lt;/code> に設定している。この定義をした時点で &lt;code>--done&lt;/code> というoptionが使えるようになっており、これを指定するとTrueが渡される&lt;/li>
+&lt;li>markdownのチェックボックス形式でタスク一覧を表示させるようにしたかったが、&lt;code>[x]&lt;/code>のように書いてしまうとrichの機能と競合して表示されなかった&lt;/li>
+&lt;/ol>
+&lt;h3 id="doneサブコマンド">doneサブコマンド&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">@app&lt;/span>&lt;span style="color:#f92672">.&lt;/span>command()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">done&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> id: int &lt;span style="color:#f92672">=&lt;/span> typer&lt;span style="color:#f92672">.&lt;/span>Argument( &lt;span style="color:#75715e"># 1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">...&lt;/span>, help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Select task id&amp;#34;&lt;/span>, metavar&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;TASK_ID&amp;#34;&lt;/span>, show_default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span> &lt;span style="color:#75715e"># 2&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74"> check the task
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74"> &amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> task &lt;span style="color:#f92672">=&lt;/span> db&lt;span style="color:#f92672">.&lt;/span>done_task(id)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print(&lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&lt;/span>&lt;span style="color:#e6db74">{&lt;/span>task&lt;span style="color:#f92672">.&lt;/span>id&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">. &amp;#34;&lt;/span>&lt;span style="color:#e6db74">{&lt;/span>task&lt;span style="color:#f92672">.&lt;/span>task&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">&amp;#34; is done:tada:&amp;#39;&lt;/span>) &lt;span style="color:#75715e"># 3&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol>
+&lt;li>task_idが必須項目になるので &lt;code>typer.Argument(...)&lt;/code>で定義した&lt;/li>
+&lt;li>metavarパラメータでhelpの表示時を指定できる。また関数のデフォルト値ではなく、helpに表示するときのデフォルト値を&lt;code>show_default&lt;/code>で変えられる&lt;/li>
+&lt;li>richの機能で絵文字が表示させることができる&lt;/li>
+&lt;/ol>
+&lt;h3 id="rmコマンド">rmコマンド&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">@app&lt;/span>&lt;span style="color:#f92672">.&lt;/span>command()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">rm&lt;/span>(
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ids: List[int] &lt;span style="color:#f92672">=&lt;/span> typer&lt;span style="color:#f92672">.&lt;/span>Argument( &lt;span style="color:#75715e"># 1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">...&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Select task_ids separated by spaces.&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> show_default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;1 2&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> metavar&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;TASK_ID&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74"> delete the tasks
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74"> &amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> db&lt;span style="color:#f92672">.&lt;/span>delete_ids(ids)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print(&lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;removed: &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>&lt;span style="color:#e6db74">&amp;#39;,&amp;#39;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>join([str(i) &lt;span style="color:#66d9ef">for&lt;/span> i &lt;span style="color:#f92672">in&lt;/span> ids])&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">.&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol>
+&lt;li>スペース区切りで入力したcliの引数値を、配列として渡すことができる&lt;/li>
+&lt;/ol>
+&lt;h2 id="pypiへ公開する">PyPIへ公開する&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>PyPIへログインし、API tokenを発行する&lt;/p>
+&lt;p>ちなみにAPI tokenを発行する際にはscopeを選択するのですが、プロジェクトがない状態だと全プロジェクトしか選択できません。ただプロジェクトをpublishした後にプロジェクトの管理画面からスコープをプロジェクトに限定したAPI tokenが発行できるようでした。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>PoetryにPyPIのAPI tokenを設定する&lt;/p>
+&lt;pre tabindex="0">&lt;code>$ poetry config pypi-token.pypi {API TOKEN}
+&lt;/code>&lt;/pre>&lt;/li>
+&lt;li>
+&lt;p>publishする&lt;/p>
+&lt;pre tabindex="0">&lt;code>poetry publish --build
+&lt;/code>&lt;/pre>&lt;p>publishしたらもう公開されており、pip installでインストールできるようになっています。また更新はpyproject.tomlで設定しているversionを更新して再度同じコマンドを実行する必要があります。&lt;/p>
+&lt;p>&lt;a class="link" href="https://pypi.org/project/r-todolist/" target="_blank" rel="noopener"
+>https://pypi.org/project/r-todolist/&lt;/a> 🎉&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="参考">参考&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://typer.tiangolo.com/tutorial/package/" target="_blank" rel="noopener"
+>Building a Package - Typer&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>ISUCON12予選問題解き直し2</title><link>https://reiichii.github.io/post/2022-09-04-22/</link><pubDate>Sun, 04 Sep 2022 22:28:00 +0900</pubDate><guid>https://reiichii.github.io/post/2022-09-04-22/</guid><description>&lt;p>&lt;a class="link" href="http://localhost:1313/post/2022-08-27-15/" target="_blank" rel="noopener"
 >前回の記事&lt;/a>の続きです。&lt;/p>
 &lt;p>&lt;a class="link" href="https://isucon.net/archives/56842718.html" target="_blank" rel="noopener"
 >ISUCON12 予選の解説 (Node.jsでSQLiteのまま10万点行く方法) : ISUCON公式Blog&lt;/a>を参考にPythonで解き直していました。アプリケーションサーバを分ける手前まで改善したのですがmax6500点までしかいかず、分けても10万点どころか予選突破相当の24000点に届くかさえ怪しかったので頓挫しました。&lt;/p>
