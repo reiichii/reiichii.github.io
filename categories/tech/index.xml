@@ -62,7 +62,7 @@ Shooting portal gun
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>app &lt;span style="color:#f92672">=&lt;/span> typer&lt;span style="color:#f92672">.&lt;/span>Typer()
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">@app&lt;/span>&lt;span style="color:#f92672">.&lt;/span>command() &lt;span style="color:#75715e"># 1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">@app.command&lt;/span>() &lt;span style="color:#75715e"># 1&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">add&lt;/span>(
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> task: str &lt;span style="color:#f92672">=&lt;/span> typer&lt;span style="color:#f92672">.&lt;/span>Option( &lt;span style="color:#75715e"># 2&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">...&lt;/span>,
@@ -101,7 +101,7 @@ Shooting portal gun
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>app &lt;span style="color:#f92672">=&lt;/span> typer&lt;span style="color:#f92672">.&lt;/span>Typer()
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">@app&lt;/span>&lt;span style="color:#f92672">.&lt;/span>command()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">@app.command&lt;/span>()
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">ls&lt;/span>(done: bool &lt;span style="color:#f92672">=&lt;/span> typer&lt;span style="color:#f92672">.&lt;/span>Option(&lt;span style="color:#66d9ef">False&lt;/span>, help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Show only DONE tasks.&amp;#34;&lt;/span>)): &lt;span style="color:#75715e"># 1&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&amp;#34;
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#e6db74"> show incomplete tasks.
@@ -115,7 +115,7 @@ Shooting portal gun
 &lt;li>markdownのチェックボックス形式でタスク一覧を表示させるようにしたかったが、&lt;code>[x]&lt;/code>のように書いてしまうとrichの機能と競合して表示されなかった&lt;/li>
 &lt;/ol>
 &lt;h3 id="doneサブコマンド">doneサブコマンド&lt;/h3>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">@app&lt;/span>&lt;span style="color:#f92672">.&lt;/span>command()
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">@app.command&lt;/span>()
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">done&lt;/span>(
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> id: int &lt;span style="color:#f92672">=&lt;/span> typer&lt;span style="color:#f92672">.&lt;/span>Argument( &lt;span style="color:#75715e"># 1&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">...&lt;/span>, help&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Select task id&amp;#34;&lt;/span>, metavar&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;TASK_ID&amp;#34;&lt;/span>, show_default&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;1&amp;#34;&lt;/span> &lt;span style="color:#75715e"># 2&lt;/span>
@@ -132,7 +132,7 @@ Shooting portal gun
 &lt;li>richの機能で絵文字が表示させることができる&lt;/li>
 &lt;/ol>
 &lt;h3 id="rmコマンド">rmコマンド&lt;/h3>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">@app&lt;/span>&lt;span style="color:#f92672">.&lt;/span>command()
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">@app.command&lt;/span>()
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">rm&lt;/span>(
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ids: List[int] &lt;span style="color:#f92672">=&lt;/span> typer&lt;span style="color:#f92672">.&lt;/span>Argument( &lt;span style="color:#75715e"># 1&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">...&lt;/span>,
