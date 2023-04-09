@@ -4,9 +4,10 @@ date: 2022-07-24T14:06:01+09:00
 draft: false
 image: score_graph.png
 categories:
-    - 参加レポ
+    - tech
 tags:
     - ISUCON
+    - 参加レポ
 ---
 
 ISUCON12予選に参加しました。結果は散々だったのですが振り返りも兼ねて残しておこうと思います。
