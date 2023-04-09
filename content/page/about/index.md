@@ -12,4 +12,5 @@ menu:
 日々のあれこれを忘れないようにするためのブログです。  
 ジャンルは絞らず、気の向くままに続けていけたらと思っています。
 
-[旧ブログ（はてなブログ）](https://reiichii.hateblo.jp/)
+* [Zenn](https://zenn.dev/reiichii01)
+* [旧ブログ（はてなブログ）](https://reiichii.hateblo.jp/)
