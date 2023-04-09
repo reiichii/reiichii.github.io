@@ -6,6 +6,7 @@ categories:
     - tech
 tags:
     - 設計
+    - 読書ログ
 ---
 
 Software Design2月号で特集されていたドメイン駆動設計入門を読んだ時のメモです。
