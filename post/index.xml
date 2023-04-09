@@ -1,4 +1,120 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 日々のあれこれφ(．．)</title><link>https://reiichii.github.io/post/</link><description>Recent content in Posts on 日々のあれこれφ(．．)</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 27 Feb 2023 14:52:15 +0900</lastBuildDate><atom:link href="https://reiichii.github.io/post/index.xml" rel="self" type="application/rss+xml"/><item><title>ドメイン駆動設計入門(SoftwareDesign2023年2月号)を読んだ</title><link>https://reiichii.github.io/post/2023-02-27-15/</link><pubDate>Mon, 27 Feb 2023 14:52:15 +0900</pubDate><guid>https://reiichii.github.io/post/2023-02-27-15/</guid><description>&lt;p>Software Design2月号で特集されていたドメイン駆動設計入門を読んだ時のメモです。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 日々のあれこれφ(．．)</title><link>https://reiichii.github.io/post/</link><description>Recent content in Posts on 日々のあれこれφ(．．)</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 09 Apr 2023 10:27:16 +0900</lastBuildDate><atom:link href="https://reiichii.github.io/post/index.xml" rel="self" type="application/rss+xml"/><item><title>プログラマー脳 ~優れたプログラマーになるための認知科学に基づくアプローチ を読んだ</title><link>https://reiichii.github.io/post/2023-04-09-10/</link><pubDate>Sun, 09 Apr 2023 10:27:16 +0900</pubDate><guid>https://reiichii.github.io/post/2023-04-09-10/</guid><description>&lt;p>『プログラマー脳 ~優れたプログラマーになるための認知科学に基づくアプローチ』と言う本を読んだ時のメモです。&lt;/p>
+&lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">積み本そっちのけで読む &lt;a href="https://t.co/6XuNOV4aXs">pic.twitter.com/6XuNOV4aXs&lt;/a>&lt;/p>&amp;mdash; れ (@reiichii01) &lt;a href="https://twitter.com/reiichii01/status/1630138659428274176?ref_src=twsrc%5Etfw">February 27, 2023&lt;/a>&lt;/blockquote>
+&lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8">&lt;/script>
+&lt;h2 id="きっかけ">きっかけ&lt;/h2>
+&lt;p>Goを勉強している時や仕事の中で、なんとなくコーディングに苦手意識がありました。そんな折にたまたまこの本を知って、息抜きがてら読んでみました。&lt;/p>
+&lt;h2 id="ざっくりとした感想">ざっくりとした感想&lt;/h2>
+&lt;p>自分の場合、脳への負荷が高くなると思考が停止してしまうことが多いのですが、そんな時に今の作業や状態をなるべく小さい単位で把握できると、どこが課題なのかどう対処できそうか考えを進めることができるので、それを実践していきたいと改めて思いました。本の各章に様々な課題に役に立ちそうなtipsが残っていたので、そういった状況に直面したタイミングで、使えそうだなと思ったものをちゃんと思い出せるようにしたいです。&lt;/p>
+&lt;p>本に出てくる「チャンク化」や「メンタルモデル」のなどは、コーディング以外のところではやっている自覚はあって、ただ自分ではそういうことをしているという自覚はなかったので、無意識だったものを言語化して把握することができました。&lt;/p>
+&lt;p>他にもオンボーディングの話や、初学者と熟練者の取り組み方の比較など書いてあったので、自分よりも若手の人に教えたりする機会にも役に立ちそうな内容が多く含まれていました。&lt;/p>
+&lt;p>複数人に対してどんな風に変数の命名をするか課題を出して結果を比較するなど、プログラミング関連の研究事例が多数紹介されていたのも面白かったです。世の中にこんな研究している人たちがいることを知って目から鱗でした。&lt;/p>
+&lt;h2 id="内容">内容&lt;/h2>
+&lt;p>とりわけ印象に残っているところを中心に、自分が思い出す用途のものです。ただ内容をしっかり説明できるほど理解はできていないので、一旦そう言うものがあるのかも程度に留め、必要に応じて該当箇所を読み返したいです。&lt;/p>
+&lt;h3 id="第1章-コードをよりよく理解するために">第1章 コードをよりよく理解するために&lt;/h3>
+&lt;p>この章ではコーディング時に発生する認知負荷についてどんなものがあるのか、またそれらがどう影響し合っているのか、それらを踏まえてコードを読みやすくするためにできる工夫などが書かれていた。&lt;/p>
+&lt;ul>
+&lt;li>コードを読む時の認知負荷
+&lt;ul>
+&lt;li>知識不足&lt;/li>
+&lt;li>情報不足&lt;/li>
+&lt;li>処理能力の不足&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>記憶のチャンク化
+&lt;ul>
+&lt;li>ビーコンなど、記憶を容易にする工夫をすると良い&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>負荷が高いと感じる時に、何によるものなのか自分が把握できると良いのかもと思った。&lt;/p>
+&lt;h3 id="第2章-コードについて考える">第2章 コードについて考える&lt;/h3>
+&lt;p>この章では第1章の認知負荷の話を踏まえて、コードをより理解するためのアプローチ方法について書かれていた。&lt;/p>
+&lt;ul>
+&lt;li>変数の役割11パターン
+&lt;ol>
+&lt;li>固定値&lt;/li>
+&lt;li>ステッパー：ループ処理の際に使われるiのようなもの&lt;/li>
+&lt;li>フラグ&lt;/li>
+&lt;li>ウォーカー：ステッパーと同様にデータを走査する際に使用されるが、ステッパーのように何が入るか予測しにくいもの。配列のインデックスだったり、ポインタだったり&lt;/li>
+&lt;li>直近の値の保持者：例えばファイルから読み込んだ行など&lt;/li>
+&lt;li>最も重要な値の保持者：反復処理の中などで目的の値を保持するもの&lt;/li>
+&lt;li>収集者：データを一つの変数に集約させている時に使うもの&lt;/li>
+&lt;li>コンテナ：リストや配列など、複数要素を保持するもの&lt;/li>
+&lt;li>フォロワー：アルゴリズムなどで、前や次の値を保持して、他の変数とセットで利用されるもの&lt;/li>
+&lt;li>オーガナイザー：値を並べ替えたり、異なる形式で保存するためだけに使われるもの&lt;/li>
+&lt;li>テンポラリ：短期間だけ使われるもの&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>コードを読む際にも適用可能な文書理解の戦略
+&lt;ul>
+&lt;li>活性化：関連する事柄を積極的に考え、過去の知識を活性化させる&lt;/li>
+&lt;li>監視：理解度を把握し続ける&lt;/li>
+&lt;li>重要性の判断&lt;/li>
+&lt;li>推論&lt;/li>
+&lt;li>可視化&lt;/li>
+&lt;li>自問自答&lt;/li>
+&lt;li>要約&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>メンタルモデル&lt;/li>
+&lt;li>より良い変数名のための3ステップ
+&lt;ul>
+&lt;li>命名に含める概念を選択する&lt;/li>
+&lt;li>概念を表す単語を選択する&lt;/li>
+&lt;li>単語を使って命名を行う&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>変数の役割11パターンは自分考えたことなかったけど、言われてみれば役割は何パターンかに集約されそう。&lt;/p>
+&lt;h3 id="第3章-より良いコードを書くために">第3章 より良いコードを書くために&lt;/h3>
+&lt;p>この章では理解しやすいコードを書くにはどうするか、またその逆として理解しにくいコードにはどういう特徴があるか、といった内容が書かれていた。&lt;/p>
+&lt;ul>
+&lt;li>コードの臭い
+&lt;ul>
+&lt;li>「巨大なクラス」や「長過ぎるメソッド」など、リファクタリング本で取り上げられているものが紹介されていた&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>範例（work example）。問題解決能力を養うには、公式だけではなく、公式を使ってどうやって解いたかも合わせて教えてもらったグループの方が点数が高くなる傾向にあると言う教育系の研究事例がある。&lt;/li>
+&lt;/ul>
+&lt;p>リファクタリング本は読もうと思っていて積んでいたので、内容を少し知れて参考になった。&lt;/p>
+&lt;p>今までの章を読んでこの章を読むと、分かりやすい命名によって受けられる恩恵の大きさを再認識できた気がする。&lt;/p>
+&lt;h3 id="第4章-コーディングにおける共同作業">第4章 コーディングにおける共同作業&lt;/h3>
+&lt;p>この章では開発者個人からさらに視野を広げて、チームで開発する際に新しい人が参画しやすくする方法などについて書かれていた。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>プログラミングの中の様々な活動&lt;/p>
+&lt;ul>
+&lt;li>転写&lt;/li>
+&lt;li>探索&lt;/li>
+&lt;li>理解&lt;/li>
+&lt;li>検索&lt;/li>
+&lt;li>増強：検索・理解・転写を組み合わせて新しい機能を作ること&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>コードの理解のしやすさの指標&lt;/p>
+&lt;ul>
+&lt;li>エラーの発生しやすさ&lt;/li>
+&lt;li>一貫性&lt;/li>
+&lt;li>拡張性&lt;/li>
+&lt;li>隠された依存関係&lt;/li>
+&lt;li>暫定性&lt;/li>
+&lt;li>粘性&lt;/li>
+&lt;li>段階的評価&lt;/li>
+&lt;li>役割表現力&lt;/li>
+&lt;li>マッピングの近接度&lt;/li>
+&lt;li>ハードな心的操作&lt;/li>
+&lt;li>副次的表記&lt;/li>
+&lt;li>抽象化&lt;/li>
+&lt;li>視認性&lt;/li>
+&lt;/ul>
+&lt;p>表記法の認知特性（cognitive dimentions of notation）と言うものを、コードを対象に拡張したもの。ただしこれらは全部を満たせれば良いと言うものではなく、トレードオフの関係になるものもある。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>新人のオンボーディングにあたって、認知負荷が高いことを覚えておく必要がある。熟練者は習得にかかった負荷を忘れてしまうもの&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>エンジニア1年目の自分は熟練のプログラマーは頭の中で全てコーディングを完結させているものだと思っていたので、1年目の自分にこれを教えてあげたかった。&lt;/p></description></item><item><title>ドメイン駆動設計入門(SoftwareDesign2023年2月号)を読んだ</title><link>https://reiichii.github.io/post/2023-02-27-15/</link><pubDate>Mon, 27 Feb 2023 14:52:15 +0900</pubDate><guid>https://reiichii.github.io/post/2023-02-27-15/</guid><description>&lt;p>Software Design2月号で特集されていたドメイン駆動設計入門を読んだ時のメモです。&lt;/p>
 &lt;h2 id="きっかけ">きっかけ&lt;/h2>
 &lt;p>直近のタスクで作ったコードの設計がなんとなくいまいちで、どうすればもっとよくできていたのか悩んでいました。
 また少し読んでいたGoの本で出てきたAPIのリポジトリ構成の設計思想がクリーンアーキテクチャやDDDがベースになっているもので、この辺り理解を深めたいなと思っていました。
