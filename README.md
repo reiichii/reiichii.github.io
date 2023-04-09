@@ -18,3 +18,11 @@ hugo server -D --gc
 
 -D, --buildDrafts: include content marked as draft
 --gc: enable to run some cleanup tasks (remove unused cache files) after the build
+
+### embed tweet
+
+tweetのurlからuserとidを取得して入れる
+
+```
+{{< tweet user="reiichii01" id="1630138659428274176" >}}
+```
