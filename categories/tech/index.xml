@@ -1,4 +1,17 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>tech on 日々のあれこれφ(．．)</title><link>https://reiichii.github.io/categories/tech/</link><description>Recent content in tech on 日々のあれこれφ(．．)</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 09 Apr 2023 10:27:16 +0900</lastBuildDate><atom:link href="https://reiichii.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>プログラマー脳 ~優れたプログラマーになるための認知科学に基づくアプローチ を読んだ</title><link>https://reiichii.github.io/post/2023-04-09-10/</link><pubDate>Sun, 09 Apr 2023 10:27:16 +0900</pubDate><guid>https://reiichii.github.io/post/2023-04-09-10/</guid><description>&lt;p>『プログラマー脳 ~優れたプログラマーになるための認知科学に基づくアプローチ』と言う本を読んだ時のメモです。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>tech on 日々のあれこれφ(．．)</title><link>https://reiichii.github.io/categories/tech/</link><description>Recent content in tech on 日々のあれこれφ(．．)</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 09 Apr 2023 10:50:51 +0900</lastBuildDate><atom:link href="https://reiichii.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>catatsuy/private-isuのパフォーマンス改善（max10万点程度）</title><link>https://reiichii.github.io/post/2023-04-09-11/</link><pubDate>Sun, 09 Apr 2023 10:50:51 +0900</pubDate><guid>https://reiichii.github.io/post/2023-04-09-11/</guid><description>&lt;p>平日夜の時間を使ってちょこちょこprivate-isuでパフォーマンス改善の勉強をしていました。&lt;/p>
+&lt;p>大半やISUCON本や他の方のブログを参考にしたものなので、パフォーマンス改善面で真新しいことはやっていません。自分の整理&amp;amp;復習目的でやったことを書こうと思っていたのですが、試行錯誤ログが酷すぎて復習ブログ書くのが困難だったので、一旦作業ログとしてソースコードだけ残します。&lt;/p>
+&lt;p>4月はプライベートが忙しくなりそうなのと、ちょっと別のことをやりたくなったので、落ち着いたら復習がてら解きなおして再度まとめたい..。&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/reiichii/isucon-private-isu" target="_blank" rel="noopener"
+>https://github.com/reiichii/isucon-private-isu&lt;/a>&lt;/p>
+&lt;h2 id="参考">参考&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://knowledge.sakura.ad.jp/31520/" target="_blank" rel="noopener"
+>ISUCON過去問題の環境を「さくらのクラウド」で構築する | さくらのナレッジ&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://amzn.asia/d/iYHy8uZ" target="_blank" rel="noopener"
+>達人が教えるWebパフォーマンスチューニング 〜ISUCONから学ぶ高速化の実践 | Amazon&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://blog.stenyan.jp/entry/2022/07/18/224212" target="_blank" rel="noopener"
+>ISUCONの素振りで private-isu をやってGo実装で32万点までひとまず行った | stefafafan の fa は3つです&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>プログラマー脳 ~優れたプログラマーになるための認知科学に基づくアプローチ を読んだ</title><link>https://reiichii.github.io/post/2023-04-09-10/</link><pubDate>Sun, 09 Apr 2023 10:27:16 +0900</pubDate><guid>https://reiichii.github.io/post/2023-04-09-10/</guid><description>&lt;p>『プログラマー脳 ~優れたプログラマーになるための認知科学に基づくアプローチ』と言う本を読んだ時のメモです。&lt;/p>
 &lt;blockquote class="twitter-tweet">&lt;p lang="ja" dir="ltr">積み本そっちのけで読む &lt;a href="https://t.co/6XuNOV4aXs">pic.twitter.com/6XuNOV4aXs&lt;/a>&lt;/p>&amp;mdash; れ (@reiichii01) &lt;a href="https://twitter.com/reiichii01/status/1630138659428274176?ref_src=twsrc%5Etfw">February 27, 2023&lt;/a>&lt;/blockquote>
 &lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8">&lt;/script>
 &lt;h2 id="きっかけ">きっかけ&lt;/h2>

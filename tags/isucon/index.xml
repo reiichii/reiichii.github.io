@@ -1,4 +1,17 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ISUCON on 日々のあれこれφ(．．)</title><link>https://reiichii.github.io/tags/isucon/</link><description>Recent content in ISUCON on 日々のあれこれφ(．．)</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 04 Sep 2022 22:28:00 +0900</lastBuildDate><atom:link href="https://reiichii.github.io/tags/isucon/index.xml" rel="self" type="application/rss+xml"/><item><title>ISUCON12予選問題解き直し2</title><link>https://reiichii.github.io/post/2022-09-04-22/</link><pubDate>Sun, 04 Sep 2022 22:28:00 +0900</pubDate><guid>https://reiichii.github.io/post/2022-09-04-22/</guid><description>&lt;p>&lt;a class="link" href="http://localhost:1313/post/2022-08-27-15/" target="_blank" rel="noopener"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ISUCON on 日々のあれこれφ(．．)</title><link>https://reiichii.github.io/tags/isucon/</link><description>Recent content in ISUCON on 日々のあれこれφ(．．)</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 09 Apr 2023 10:50:51 +0900</lastBuildDate><atom:link href="https://reiichii.github.io/tags/isucon/index.xml" rel="self" type="application/rss+xml"/><item><title>catatsuy/private-isuのパフォーマンス改善（max10万点程度）</title><link>https://reiichii.github.io/post/2023-04-09-11/</link><pubDate>Sun, 09 Apr 2023 10:50:51 +0900</pubDate><guid>https://reiichii.github.io/post/2023-04-09-11/</guid><description>&lt;p>平日夜の時間を使ってちょこちょこprivate-isuでパフォーマンス改善の勉強をしていました。&lt;/p>
+&lt;p>大半やISUCON本や他の方のブログを参考にしたものなので、パフォーマンス改善面で真新しいことはやっていません。自分の整理&amp;amp;復習目的でやったことを書こうと思っていたのですが、試行錯誤ログが酷すぎて復習ブログ書くのが困難だったので、一旦作業ログとしてソースコードだけ残します。&lt;/p>
+&lt;p>4月はプライベートが忙しくなりそうなのと、ちょっと別のことをやりたくなったので、落ち着いたら復習がてら解きなおして再度まとめたい..。&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/reiichii/isucon-private-isu" target="_blank" rel="noopener"
+>https://github.com/reiichii/isucon-private-isu&lt;/a>&lt;/p>
+&lt;h2 id="参考">参考&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://knowledge.sakura.ad.jp/31520/" target="_blank" rel="noopener"
+>ISUCON過去問題の環境を「さくらのクラウド」で構築する | さくらのナレッジ&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://amzn.asia/d/iYHy8uZ" target="_blank" rel="noopener"
+>達人が教えるWebパフォーマンスチューニング 〜ISUCONから学ぶ高速化の実践 | Amazon&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://blog.stenyan.jp/entry/2022/07/18/224212" target="_blank" rel="noopener"
+>ISUCONの素振りで private-isu をやってGo実装で32万点までひとまず行った | stefafafan の fa は3つです&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>ISUCON12予選問題解き直し2</title><link>https://reiichii.github.io/post/2022-09-04-22/</link><pubDate>Sun, 04 Sep 2022 22:28:00 +0900</pubDate><guid>https://reiichii.github.io/post/2022-09-04-22/</guid><description>&lt;p>&lt;a class="link" href="http://localhost:1313/post/2022-08-27-15/" target="_blank" rel="noopener"
 >前回の記事&lt;/a>の続きです。&lt;/p>
 &lt;p>&lt;a class="link" href="https://isucon.net/archives/56842718.html" target="_blank" rel="noopener"
 >ISUCON12 予選の解説 (Node.jsでSQLiteのまま10万点行く方法) : ISUCON公式Blog&lt;/a>を参考にPythonで解き直していました。アプリケーションサーバを分ける手前まで改善したのですがmax6500点までしかいかず、分けても10万点どころか予選突破相当の24000点に届くかさえ怪しかったので頓挫しました。&lt;/p>
